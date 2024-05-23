@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Model Page</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Sequence Classification System</h1>
+        <div class="model-section">
+            <form method="post" action="/predict">
+                <label for="user_input">Enter your text...</label>
+                <textarea id="user_input" name="user_input" placeholder="Enter your text to classify">{{ user_input | default('') }}</textarea>
+                <div class="btn-container">
+                    <button type="submit" class="btn">Detect Abbreviations</button>
+                    <a href="/logs" class="btn">Previous Trials</a>
+                </div>
+            </form>
+            <div class="results">
+                <h2>Detected Abbreviations</h2>
+                {% if result is defined %}
+                <ul>
+                    {% for word, label in result %}
+                    <li>{{ word }}: {{ label }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

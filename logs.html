@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logs Page</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script>
+        function toggleDetails(id) {
+            var element = document.getElementById(id);
+            if (element.style.display === "none") {
+                element.style.display = "block";
+            } else {
+                element.style.display = "none";
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Sequence Classification System</h1>
+        <div class="logs-section">
+            <div class="logs">
+                <h2>Previous Trials</h2>
+                <ul>
+                    {% for idx, log in enumerate(logs) %}
+                        <li>
+                            <strong>Trial {{ idx + 1 }}:</strong> <br>
+                            <strong>Timestamp:</strong> {{ log.timestamp }}<br>
+                            <button class="btn" onclick="toggleDetails('details-{{ idx }}')">Show/Hide Details</button>
+                            <div id="details-{{ idx }}" style="display: none;">
+                                <strong>Input:</strong> {{ log.input }}<br>
+                                <strong>Result:</strong> 
+                                <ul>
+                                    {% for word, label in log.result %}
+                                        <li>{{ word }}: {{ label }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="new-trial">
+                <h2>&nbsp;</h2> <!-- Empty heading for alignment -->
+                <a href="/model" class="btn">Start a new trial</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
